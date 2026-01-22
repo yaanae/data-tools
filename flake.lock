@@ -1,0 +1,151 @@
+{
+  "nodes": {
+    "actions-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1762382446,
+        "narHash": "sha256-PHQCk+RsAP5slX2QSndo8bkuhpCw3iBVcp8PZkZy5GY=",
+        "owner": "yaanae",
+        "repo": "actions.nvim",
+        "rev": "5ff3e0f9096ac76b073d7e2fab2dc3bf02182d7f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yaanae",
+        "repo": "actions.nvim",
+        "type": "github"
+      }
+    },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "nixvim",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765835352,
+        "narHash": "sha256-XswHlK/Qtjasvhd1nOa1e8MgZ8GS//jBoTqWtrS1Giw=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "a34fae9c08a15ad73f295041fec82323541400a9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "mdx07-binaries": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1768854779,
+        "narHash": "sha256-ql/EDZK1hlG9/nD4GddXMTccFfZbe93SHSa/469eAnQ=",
+        "ref": "refs/heads/main",
+        "rev": "0aa2036e15809e88126f1be5f4f008fe4a06f02f",
+        "revCount": 13,
+        "type": "git",
+        "url": "https://git.chalmers.se/erik.sintorn/mdx07-binaries.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.chalmers.se/erik.sintorn/mdx07-binaries.git"
+      }
+    },
+    "mdx07-templates": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1768859718,
+        "narHash": "sha256-CriUojyOlUVDIWKBs9StNRw8O0YP8btYdrC1JNtHGvI=",
+        "ref": "refs/heads/main",
+        "rev": "e66ad7c0913d62a25904f7b3e7709d6a79bea1ea",
+        "revCount": 65,
+        "type": "git",
+        "url": "https://git.chalmers.se/haelias/mdx07-templates-library.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.chalmers.se/haelias/mdx07-templates-library.git"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1768783163,
+        "narHash": "sha256-tLj4KcRDLakrlpvboTJDKsrp6z2XLwyQ4Zmo+w8KsY4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "bde09022887110deb780067364a0818e89258968",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixvim": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1768910181,
+        "narHash": "sha256-YRU0IHMzXluZxr0JDfq9jtblb4DV7MIB5wj2jYMFKQc=",
+        "owner": "nix-community",
+        "repo": "nixvim",
+        "rev": "5b138edcb2f1c3ed4b29eca3658f04f0639b98b3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixvim",
+        "type": "github"
+      }
+    },
+    "riscv-gcc": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765449101,
+        "narHash": "sha256-l+JjwoPA8ZzOPpzfq5MhWFmr+iqdFJz2lUXLxFnFo8I=",
+        "type": "tarball",
+        "url": "https://www.cse.chalmers.se/edu/resources/software/riscv32-gcc/riscv-gcc-ubuntu-22.04-x64.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://www.cse.chalmers.se/edu/resources/software/riscv32-gcc/riscv-gcc-ubuntu-22.04-x64.tar.gz"
+      }
+    },
+    "root": {
+      "inputs": {
+        "actions-nvim": "actions-nvim",
+        "mdx07-binaries": "mdx07-binaries",
+        "mdx07-templates": "mdx07-templates",
+        "nixpkgs": "nixpkgs",
+        "nixvim": "nixvim",
+        "riscv-gcc": "riscv-gcc"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
