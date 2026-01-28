@@ -24,11 +24,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765835352,
-        "narHash": "sha256-XswHlK/Qtjasvhd1nOa1e8MgZ8GS//jBoTqWtrS1Giw=",
+        "lastModified": 1768135262,
+        "narHash": "sha256-PVvu7OqHBGWN16zSi6tEmPwwHQ4rLPU9Plvs8/1TUBY=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "a34fae9c08a15ad73f295041fec82323541400a9",
+        "rev": "80daad04eddbbf5a4d883996a73f3f542fa437ac",
         "type": "github"
       },
       "original": {
@@ -40,11 +40,11 @@
     "mdx07-binaries": {
       "flake": false,
       "locked": {
-        "lastModified": 1768854779,
-        "narHash": "sha256-ql/EDZK1hlG9/nD4GddXMTccFfZbe93SHSa/469eAnQ=",
+        "lastModified": 1769422811,
+        "narHash": "sha256-U3P5YcUZV06xx6xfFCj3C8cSECmLNW+1bUzCP50hy18=",
         "ref": "refs/heads/main",
-        "rev": "0aa2036e15809e88126f1be5f4f008fe4a06f02f",
-        "revCount": 13,
+        "rev": "2597eab47fe4a58a1392c682976a1b04a23b7462",
+        "revCount": 14,
         "type": "git",
         "url": "https://git.chalmers.se/erik.sintorn/mdx07-binaries.git"
       },
@@ -56,11 +56,11 @@
     "mdx07-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1768859718,
-        "narHash": "sha256-CriUojyOlUVDIWKBs9StNRw8O0YP8btYdrC1JNtHGvI=",
+        "lastModified": 1769595060,
+        "narHash": "sha256-b2awaAzAAqsabNio5hxxPiFovXEHcxUjHueRwkKOxdc=",
         "ref": "refs/heads/main",
-        "rev": "e66ad7c0913d62a25904f7b3e7709d6a79bea1ea",
-        "revCount": 65,
+        "rev": "0777aac07f8282ecab2d18b3868d79258a64dd83",
+        "revCount": 75,
         "type": "git",
         "url": "https://git.chalmers.se/haelias/mdx07-templates-library.git"
       },
@@ -71,11 +71,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1768783163,
-        "narHash": "sha256-tLj4KcRDLakrlpvboTJDKsrp6z2XLwyQ4Zmo+w8KsY4=",
+        "lastModified": 1769433173,
+        "narHash": "sha256-Gf1dFYgD344WZ3q0LPlRoWaNdNQq8kSBDLEWulRQSEs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "bde09022887110deb780067364a0818e89258968",
+        "rev": "13b0f9e6ac78abbbb736c635d87845c4f4bee51b",
         "type": "github"
       },
       "original": {
@@ -94,11 +94,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1768910181,
-        "narHash": "sha256-YRU0IHMzXluZxr0JDfq9jtblb4DV7MIB5wj2jYMFKQc=",
+        "lastModified": 1769537308,
+        "narHash": "sha256-N7famD4s2hiDIicr9mJWhUj8l9EULB60+1QN/S+UjeM=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "5b138edcb2f1c3ed4b29eca3658f04f0639b98b3",
+        "rev": "7addac6d111837217c16762968a9042eac703f7e",
         "type": "github"
       },
       "original": {
