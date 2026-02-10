@@ -169,7 +169,7 @@
       nativeBuildInputs = with pkgs; [ unzip autoPatchelfHook wrapGAppsHook3 ];
       buildInputs = with pkgs; [
         libusb1
-        xorg.libXxf86vm
+        libxxf86vm
       ];
       patchPhase = ''
         chmod -x linux-x64/openocd.cfg
@@ -209,6 +209,11 @@
     };
 
   in {
+    _module.args.pkgs = import inputs.nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
+
     packages = {
       moppen-mdx07-init = mdx07-init;
       moppen-mdx07-gcc = riscv32-embedded-pkgs.gcc;
