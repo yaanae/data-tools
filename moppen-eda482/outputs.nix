@@ -22,7 +22,7 @@
         ''} "$out/Basic templates/md307-master/.asm-lsp.toml"
 
         cp ${pkgs.writeText "compile-flags.txt" ''
-          -g -Wall -Wextra -std=c99 -MMD -march=rv32imf_zicsr -mabi=ilp32f
+          -Wall -Wextra -std=c99 -MMD -march=rv32imf_zicsr -mabi=ilp32f
         ''} "$out/Basic templates/md307-master/compile_flags.txt"
       '';
       meta = {

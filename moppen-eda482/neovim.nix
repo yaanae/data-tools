@@ -502,6 +502,16 @@ in {
           target = "localhost:1234";
         }
       ];
+      configurations.c = [
+        {
+          name = "(data-tools) Debug program on simserver:1234";
+          type = "mdx07-gdb";
+          request = "attach";
+          cwd = "\${workspaceFolder}";
+          program = "\${workspaceFolder}/build/\${workspaceFolderBasename}.elf";
+          target = "localhost:1234";
+        }
+      ];
       luaConfig.post = ''
         local dap = require('dap')
         local dapui = require('dapui')
