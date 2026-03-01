@@ -58,11 +58,11 @@
     "mdx07-binaries": {
       "flake": false,
       "locked": {
-        "lastModified": 1770377261,
-        "narHash": "sha256-ns4kToiFFWJyJwQXAC5ELxBp9/2AS5aueKS/9oogh4k=",
+        "lastModified": 1772215792,
+        "narHash": "sha256-9xq9mYGUZer4oVSs4MkCXTbbsijql1w5BBiMFXG0Va0=",
         "ref": "refs/heads/main",
-        "rev": "ec933da4562f77bd7d2d5955c27b05986fd7ca7b",
-        "revCount": 16,
+        "rev": "8881bd0e9012917310d912fcc878c533fd16bbba",
+        "revCount": 20,
         "type": "git",
         "url": "https://git.chalmers.se/erik.sintorn/mdx07-binaries.git"
       },
@@ -74,11 +74,11 @@
     "mdx07-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1770714014,
-        "narHash": "sha256-mUKHarH2bXZEE0EZNbrvFIor/URWERPG99VTM/dcP28=",
+        "lastModified": 1772108968,
+        "narHash": "sha256-0cO6vKg8e9iGW09rnswIuSRFxQGr1UakqYTJCHns04o=",
         "ref": "refs/heads/main",
-        "rev": "cf9ac83215018b686cff7758b8f0c49a775f4ea6",
-        "revCount": 87,
+        "rev": "2791cd428db11e457b752ab470a3a2bbf55e60d8",
+        "revCount": 103,
         "type": "git",
         "url": "https://git.chalmers.se/haelias/mdx07-templates-library.git"
       },
@@ -89,11 +89,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1770537093,
-        "narHash": "sha256-pF1quXG5wsgtyuPOHcLfYg/ft/QMr8NnX0i6tW2187s=",
+        "lastModified": 1772173633,
+        "narHash": "sha256-MOH58F4AIbCkh6qlQcwMycyk5SWvsqnS/TCfnqDlpj4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "fef9403a3e4d31b0a23f0bacebbec52c248fbb51",
+        "rev": "c0f3d81a7ddbc2b1332be0d8481a672b4f6004d6",
         "type": "github"
       },
       "original": {
@@ -127,11 +127,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1770630823,
-        "narHash": "sha256-5SEmOnJ61vmbap39vzWEsCX5UQ+3Ul8J4mXWKdqSn3w=",
+        "lastModified": 1771135771,
+        "narHash": "sha256-wyvBIhDuyCRyjB3yPg77qoyxrlgQtBR1rVW3c9knV3E=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "6acc964664ac916c64fe4e394edd467af4d90790",
+        "rev": "ed0424f0b08d303a7348f52f7850ad1b2704f9ba",
         "type": "github"
       },
       "original": {
