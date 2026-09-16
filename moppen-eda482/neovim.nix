@@ -1,4 +1,4 @@
-{ pkgs, actions-nvim, ... }:
+{ pkgs, actions-nvim, lib, ... }:
 let
   actions-nvim-plugin = pkgs.vimUtils.buildVimPlugin {
     name = "actions.nvim";
@@ -69,6 +69,11 @@ in {
       key = "<leader>le";
       action.__raw = "vim.diagnostic.open_float";
       options.desc = "View LSP diagnostic message";
+    }
+    {
+      key = "<leader>la";
+      action.__raw = "vim.lsp.buf.code_action";
+      options.desc = "Execute LSP action";
     }
     {
       key = "<leader>lE";
@@ -319,21 +324,49 @@ in {
             end
             return t1
           end
+
+          local function trim_prefix(s, prefix)
+            local len = #s
+            local plen = #prefix
+            if len == 0 or plen == 0 or len < plen then
+                return s
+            elseif s == prefix then
+                return ""
+            elseif string.sub(s, 1, plen) == prefix then
+                return string.sub(s, plen + 1)
+            end
+            return s
+          end
+
+          vim.print("Hello!")
+          local cwDir = vim.fn.getcwd()
+          vim.print("cwDir" .. cwDir)
+          local matching_files = vim.split(vim.fn.glob(cwDir .. "/**/io?config.json"), '\n', {trimempty=true})
+          local rv32emu_actions = {}
+          for _n, option in ipairs(matching_files) do
+            -- local short_name = option:match("^" .. cwDir .. "(.*)") or option
+            -- local short_name = (option:sub(0, #cwDir) == p) and option:sub(#cwDir+1) or option
+            local short_name = trim_prefix(option, cwDir)
+            vim.print("matches " .. short_name)
+            table.insert(rv32emu_actions, {
+              name = '(moppen) Start rv32emu with IO config "' .. short_name .. '". ',
+              cmd = 'rv32emu -j "' .. option .. '" -g',
+              terminal = 'rv32emu ' .. short_name,
+            })
+          end
+
           local actions = {}
           local moppen_actions = {
             {
-              name = '(moppen) Run make',
-              cmd = 'make',
+              name = '(moppen) Run make all',
+              cmd = 'make all',
               terminal = 'make',
             },
-            {
-              name = '(moppen) Start simserver',
-              cmd = 'simserver',
-              terminal = 'simserver',
-            }
           }
           if filetype == 'asm' then actions = concatTable(actions, moppen_actions) end
+          if filetype == 'asm' then actions = concatTable(actions, rv32emu_actions) end
           if filetype == 'c' then actions = concatTable(actions, moppen_actions) end
+          if filetype == 'c' then actions = concatTable(actions, rv32emu_actions) end
           return actions
         end
       '';
@@ -477,7 +510,35 @@ in {
       };
     };
 
-    dap = {
+    dap = let
+      debug-configuration = {
+        name = "(data-tools) Debug elf on rv32emu:1234";
+        type = "rv32emu";
+        request = "attach";
+        cwd = "\${workspaceFolder}";
+        program.__raw = ''
+          function()
+            local cwDir = vim.fn.getcwd()
+            local cwdContent = vim.split(vim.fn.glob(cwDir .. "/build/*.elf"), '\n', {trimempty=true})
+
+            if #cwdContent == 1 then
+              local path = cwdContent[1]
+              return (path and path ~= "") and path or dap.ABORT
+            end
+          
+            local numberedOptions = {"Path to executable:"}
+            for key, option in ipairs(cwdContent) do
+              table.insert(numberedOptions, tostring(key) .. ". " .. option)
+            end
+
+            local option = vim.fn.inputlist( numberedOptions )
+            local path = cwdContent[option]
+            return (path and path ~= "") and path or dap.ABORT
+          end
+        '';
+        target = "localhost:1234";
+      };
+    in{
       enable = true;
       signs = {
         dapBreakpoint.text = "";
@@ -485,33 +546,15 @@ in {
         dapStopped.text = "";
         dapStopped.texthl = "DapUIPlayPause";
       };
-      adapters.mdx07-gdb.__raw = ''
+      adapters.rv32emu.__raw = ''
         {
           type = "executable",
           command = "gdb",
           args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
         }
       '';
-      configurations.asm = [
-        {
-          name = "(data-tools) Debug program on simserver:1234";
-          type = "mdx07-gdb";
-          request = "attach";
-          cwd = "\${workspaceFolder}";
-          program = "\${workspaceFolder}/build/\${workspaceFolderBasename}.elf";
-          target = "localhost:1234";
-        }
-      ];
-      configurations.c = [
-        {
-          name = "(data-tools) Debug program on simserver:1234";
-          type = "mdx07-gdb";
-          request = "attach";
-          cwd = "\${workspaceFolder}";
-          program = "\${workspaceFolder}/build/\${workspaceFolderBasename}.elf";
-          target = "localhost:1234";
-        }
-      ];
+      configurations.asm = [ debug-configuration ];
+      configurations.c = [ debug-configuration ];
       luaConfig.post = ''
         local dap = require('dap')
         local dapui = require('dapui')

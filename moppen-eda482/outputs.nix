@@ -8,22 +8,6 @@
       unpackPhase = ''
         mkdir -p $out
         cp -r --no-preserve=all $src/templates/* $out
-
-        cp ${pkgs.writeText ".asm-lsp.toml" ''
-          [default_config]
-          version = "0.10.1"
-          assembler = "gas"
-          instruction_set = "riscv"
-
-          [opts]
-          compiler = "riscv32-unknown-elf-gcc"
-          diagnostics = true
-          default_diagnostics = true
-        ''} "$out/Basic templates/md307-master/.asm-lsp.toml"
-
-        cp ${pkgs.writeText "compile-flags.txt" ''
-          -Wall -Wextra -std=c99 -MMD -march=rv32imf_zicsr -mabi=ilp32f
-        ''} "$out/Basic templates/md307-master/compile_flags.txt"
       '';
       meta = {
         description = "Project templates for MDx07";
@@ -138,6 +122,8 @@
       };
     };
 
+    mdx07-gcc = riscv32-embedded-pkgs.buildPackages.gcc;
+
     mdx07-binary-riscv-gcc = pkgs.stdenv.mkDerivation {
       name = "riscv-gcc";
       src = inputs.riscv-gcc;
@@ -162,33 +148,31 @@
         platforms = lib.platforms.linux;
       };
     };
+
+    arch-string = pkgs: 
+      with pkgs.stdenv.hostPlatform;
+      if isLinux && isx86_64 then
+        "linux-x64"
+      else if isDarwin && isx86_64 then
+        "macos-x64"
+      else if isDarwin && isAarch64 then
+        "macos-arm64/bin"
+      else
+        throw "Could not find a binary for the specified platform";
+
     
-    mdx07-binaries = pkgs.stdenv.mkDerivation {
-      name = "mdx07-binaries";
+    mdx07-binaries-openocd = pkgs.stdenv.mkDerivation {
+      name = "mdx07-binaries-openocd";
       src = inputs.mdx07-binaries;
-      nativeBuildInputs = with pkgs; [ unzip autoPatchelfHook wrapGAppsHook3 ];
-      buildInputs = with pkgs; [
-        libusb1
-        libxxf86vm
-      ];
+      nativeBuildInputs = with pkgs; [ autoPatchelfHook ];
+      buildInputs = with pkgs; [ libusb1 ];
       patchPhase = ''
         chmod -x linux-x64/openocd.cfg
-        chmod +x linux-x64/make
       '';
-      installPhase = let
-        arch =
-          with pkgs.stdenv.hostPlatform;
-          if isLinux && isx86_64 then
-            "linux-x64"
-          else if isDarwin && isx86_64 then
-            "macos-x64"
-          else if isDarwin && isAarch64 then
-            "macos-arm64"
-          else
-            throw "Could not find a binary for the specified platform";
-      in ''
-        mkdir -p $out
-        cp --dereference -r $src/${arch}/ $out/bin
+      installPhase = ''
+        mkdir -p $out/bin
+        cp $src/${arch-string pkgs}/openocd $out/bin/openocd
+        cp $src/${arch-string pkgs}/openocd.cfg $out/bin/openocd.cfg
       '';
       meta = {
         description = "Binary tools for MDx07";
@@ -202,6 +186,35 @@
       };
     };
     
+    mdx07-binaries-rv32emu = pkgs.stdenv.mkDerivation {
+      name = "mdx07-binaries";
+      src = inputs.mdx07-binaries;
+      nativeBuildInputs = with pkgs; [ autoPatchelfHook ];
+      buildInputs = with pkgs; [ SDL2 ];
+      installPhase = ''
+        mkdir -p $out/bin
+        cp $src/${arch-string pkgs}/rv32emu $out/bin/rv32emu
+      '';
+      meta = {
+        description = "Binary tools for MDx07";
+        homepage = "https://git.chalmers.se/erik.sintorn/mdx07-binaries.git";
+        license = lib.licenses.unfree;
+        platforms = [
+          "x86_64-linux"
+          "x86_64-darwin"
+          "aarch64-darwin"
+        ];
+      };
+    };
+
+    mdx07-gcc-compat =
+      pkgs.runCommand "riscv32-embedded-gcc-compat" { nativeBuildInputs = [ mdx07-gcc ]; }
+        ''
+          mkdir -p $out/bin
+          ls -1 ${mdx07-gcc}/bin | cut -d "-" -f 4- | xargs -I {} ln -s ${mdx07-gcc}/bin/riscv32-none-elf-{} $out/bin/riscv32-unknown-elf-{}
+        '';
+
+
     neovim = inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule {
       system = "x86_64-linux";
       module = import ./neovim.nix;
@@ -216,9 +229,10 @@
 
     packages = {
       moppen-mdx07-init = mdx07-init;
-      moppen-mdx07-gcc = riscv32-embedded-pkgs.gcc;
+      moppen-mdx07-gcc = mdx07-gcc-compat;
       moppen-mdx07-gcc-bin = mdx07-binary-riscv-gcc;
-      moppen-mdx07-binaries = mdx07-binaries;
+      moppen-mdx07-binaries-openocd = mdx07-binaries-openocd;
+      moppen-mdx07-binaries-rv32emu = mdx07-binaries-rv32emu;
       moppen-neovim = neovim;
     };
 
@@ -228,12 +242,24 @@
           pkgs.gnumake
           pkgs.gdb
           moppen-mdx07-gcc-bin
-          moppen-mdx07-binaries
+          moppen-mdx07-binaries-openocd
+          moppen-mdx07-binaries-rv32emu
           moppen-mdx07-init
           moppen-neovim
         ];
       };
       moppen = self'.devShells.moppen-eda482;
+      datateknisktprojekt = pkgs.mkShell {
+        packages = with self'.packages; [
+          pkgs.gnumake
+          pkgs.gdb
+          moppen-mdx07-gcc
+          moppen-mdx07-binaries-openocd
+          moppen-mdx07-binaries-rv32emu
+          moppen-mdx07-init
+          moppen-neovim
+        ];
+      };
     };
   };
 }
