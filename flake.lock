@@ -55,6 +55,21 @@
         "type": "github"
       }
     },
+    "import-tree": {
+      "locked": {
+        "lastModified": 1788467110,
+        "narHash": "sha256-ljEMTXP/rH0tOvDzc9gzwww6KcHRPRnEHzd9lK48V7s=",
+        "owner": "vic",
+        "repo": "import-tree",
+        "rev": "eb1b52eaecc57f7c136d07ae8a93e724dfecac46",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vic",
+        "repo": "import-tree",
+        "type": "github"
+      }
+    },
     "mdx07-binaries": {
       "flake": false,
       "locked": {
@@ -140,28 +155,15 @@
         "type": "github"
       }
     },
-    "riscv-gcc": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1765449101,
-        "narHash": "sha256-l+JjwoPA8ZzOPpzfq5MhWFmr+iqdFJz2lUXLxFnFo8I=",
-        "type": "tarball",
-        "url": "https://www.cse.chalmers.se/edu/resources/software/riscv32-gcc/riscv-gcc-ubuntu-22.04-x64.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://www.cse.chalmers.se/edu/resources/software/riscv32-gcc/riscv-gcc-ubuntu-22.04-x64.tar.gz"
-      }
-    },
     "root": {
       "inputs": {
         "actions-nvim": "actions-nvim",
         "flake-parts": "flake-parts",
+        "import-tree": "import-tree",
         "mdx07-binaries": "mdx07-binaries",
         "mdx07-templates": "mdx07-templates",
         "nixpkgs": "nixpkgs",
-        "nixvim": "nixvim",
-        "riscv-gcc": "riscv-gcc"
+        "nixvim": "nixvim"
       }
     },
     "systems": {
